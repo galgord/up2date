@@ -3,6 +3,7 @@
     "name": "up2date",
     "slug": "up2date",
     "version": "1.0.0",
+    "scheme": "com.gig50.up2date",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,7 +16,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gig50.up2date"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +26,16 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5b1e7baa-3d53-443a-b5a6-1a0799aa930c"
+      }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

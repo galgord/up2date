@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View, Button } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 import { supabase } from '../../utils/supabase'
+import { Button, Input } from '@Components/common'
 
 const Auth = () => {
   const [email, setEmail] = useState('')
@@ -36,25 +37,33 @@ const Auth = () => {
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        {/* <Input
-          label="Email"
-          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+        <Input
+          rightIcon={{
+            name: 'envelope',
+            size: 24,
+            family: 'FontAwesome',
+            color: 'black',
+          }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={'none'}
-        /> */}
+        />
       </View>
       <View style={styles.verticallySpaced}>
-        {/* <Input
-          label="Password"
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+        <Input
+          leftIcon={{
+            name: 'lock',
+            size: 24,
+            family: 'FontAwesome',
+            color: 'black',
+          }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize={'none'}
-        /> */}
+        />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />

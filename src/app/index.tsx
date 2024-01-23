@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link } from 'expo-router';
 import Login from '../components/login';
-
-export default function Page() {
+import {ThemeProvider} from '@shopify/restyle';
+import theme from '../utils/theme';
+const App = () => {
   return (
+    <ThemeProvider theme={theme}>
     <View style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.title}>Hello World</Text>
@@ -13,6 +15,7 @@ export default function Page() {
         </Link>
       </View>
     </View>
+    </ThemeProvider>
   );
 }
 
@@ -37,3 +40,4 @@ const styles = StyleSheet.create({
     color: "#38434D",
   },
 });
+export default App;

@@ -1,79 +1,102 @@
-import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
-import { supabase } from '../../utils/supabase'
-import { Button, Input } from '@Components/common'
-
+import React, { useState } from "react";
+import { Alert, StyleSheet, View } from "react-native";
+import { supabase } from "@Utils/supabase";
+import { Button, Input } from "@Components/common";
 const Auth = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loadingSignUp, setLoadingSignUp] = useState(false);
+  const [loadingSignIn, setLoadingSignIn] = useState(false);
 
   async function signInWithEmail() {
-    setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    })
+    setLoadingSignIn(true);
+    const { error, data } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-    if (error) Alert.alert(error.message)
-    setLoading(false)
+    if (error) {
+      setLoadingSignIn(false);
+      return Alert.alert(error.message);
+    }
+    if (data.session) {
+      setEmail("");
+      setPassword("");
+      setLoadingSignIn(false);
+    }
   }
 
   async function signUpWithEmail() {
-    setLoading(true)
+    setLoadingSignUp(true);
     const {
       data: { session },
       error,
     } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    })
+      email,
+      password,
+    });
 
-    if (error) Alert.alert(error.message)
-    if (!session) Alert.alert('Please check your inbox for email verification!')
-    setLoading(false)
+    if (error) {
+      setLoadingSignUp(false);
+      return Alert.alert(error.message);
+    }
+
+    if (!session) {
+      setLoadingSignUp(false);
+      Alert.alert("Please check your inbox for email verification!");
+    }
   }
 
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
-          rightIcon={{
-            name: 'envelope',
+          leftIcon={{
+            name: "envelope",
             size: 24,
-            family: 'FontAwesome',
-            color: 'black',
+            family: "FontAwesome",
+            color: "black",
           }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
-          autoCapitalize={'none'}
+          autoCapitalize={"none"}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Input
           leftIcon={{
-            name: 'lock',
+            name: "lock",
             size: 24,
-            family: 'FontAwesome',
-            color: 'black',
+            family: "FontAwesome",
+            color: "black",
           }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
-          autoCapitalize={'none'}
+          autoCapitalize={"none"}
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
+        <Button
+          title="Sign in"
+          disabled={loadingSignIn}
+          loading={loadingSignIn}
+          onPress={() => signInWithEmail()}
+        />
       </View>
       <View style={styles.verticallySpaced}>
-        <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
+        <Button
+          title="Sign up"
+          disabled={loadingSignUp}
+          loading={loadingSignUp}
+          onPress={() => signUpWithEmail()}
+        />
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -83,11 +106,11 @@ const styles = StyleSheet.create({
   verticallySpaced: {
     paddingTop: 4,
     paddingBottom: 4,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
   },
   mt20: {
     marginTop: 20,
   },
-})
+});
 
-export default Auth
+export default Auth;

@@ -1,5 +1,5 @@
-import { TextInputProps } from 'react-native';
-import * as VectorIcons from '@expo/vector-icons';
+import { TextInputProps } from "react-native";
+import * as VectorIcons from "@expo/vector-icons";
 
 export interface InputProps extends TextInputProps {
   leftIcon?: {

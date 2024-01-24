@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { supabase } from "@Utils/supabase";
 import { Button, Input } from "@Components/common";
-const Auth = () => {
+import { router } from 'expo-router';
+import { useSession } from '@Utils/ctx';
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loadingSignUp, setLoadingSignUp] = useState(false);
   const [loadingSignIn, setLoadingSignIn] = useState(false);
+  const { signInWithToken } = useSession();
 
   async function signInWithEmail() {
     setLoadingSignIn(true);
@@ -19,10 +22,12 @@ const Auth = () => {
       setLoadingSignIn(false);
       return Alert.alert(error.message);
     }
-    if (data.session) {
+    if (data.session){
+      signInWithToken(data.session.access_token);
       setEmail("");
       setPassword("");
       setLoadingSignIn(false);
+      router.replace('/');
     }
   }
 
@@ -113,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Auth;
+export default Login;

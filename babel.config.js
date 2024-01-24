@@ -11,6 +11,7 @@ module.exports = function(api) {
         "@Stores": "./src/stores",
         "@Assets": "./assets",
         "@Utils": "./src/utils",
+        "@Hooks": "./src/hooks",
       },
       "extensions": [
         ".js",

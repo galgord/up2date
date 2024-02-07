@@ -14,13 +14,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@Navigation/*": ["src/navigation/*"],
-      "@Components/*": ["src/components/*"],
-      "@Screens/*": ["src/screens/*"],
-      "@Stores/*": ["src/stores/*"],
-      "@Assets/*": ["assets/*"],
-      "@Utils/*": ["src/utils/*"],
-      "@Hooks/*": ["src/hooks/*"],
+      "@app/*": ["src/*"]
     }
   },
   "extends": "expo/tsconfig.base",

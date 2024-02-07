@@ -1,0 +1,11 @@
+query ActiveCategoriesQuery {
+  categoires: categoryCollection(filter: { active: { eq: true } }, first: 10) {
+    edges {
+      node {
+        id
+        name
+        description
+      }
+    }
+  }
+}

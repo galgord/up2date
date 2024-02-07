@@ -1,0 +1,7 @@
+enum AppStateStatus {
+  ACTIVE
+  BACKGROUND
+  EXTENSION
+  INACTIVE
+  UNKNOWN
+}

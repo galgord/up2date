@@ -11,15 +11,7 @@ const DiscoverContainer = () => {
   const onPressLogin = useCallback(() => router.navigate('/login'), [])
 
   const { data, loading } = useActiveCategoriesQuery({ fetchPolicy: 'network-only' })
-
-  return (
-    <DiscoverView
-      onPressLogin={onPressLogin}
-      onPressLogout={onPressLogout}
-      session={session}
-      categories={!loading ? data?.categoires : null}
-    />
-  )
+  return <DiscoverView />
 }
 
 export default DiscoverContainer

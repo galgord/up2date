@@ -1,78 +1,58 @@
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Category, CategoryEdge, Node, Session } from '__generated__/global-types'
+import React from 'react'
+import { FlatList, ScrollView } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Box from '@app/components/Box'
-import Button from '@app/components/Button'
 import Container from '@app/components/Container'
-import Text from '@app/components/Text'
-import services from '@app/services'
-import { useLanguage } from '@app/state/modules/app-state'
-import { ActiveCategoriesQueryResult } from '../operations/__generated__/queries.generated'
+import theme from '@app/utils/theme'
+import { CategoryHeader, CategoryPill, Header, ProductListItem, PromotionCard } from '../components'
+import SearchBar from '../components/SearchBar/SearchBar'
 
-interface Props {
-  onPressLogin: () => void
-  onPressLogout: () => void
-  session: Session
-  categories?: ActiveCategoriesQueryResult['categoires']
-}
+const tempData = [
+  { name: 'Crazy Fruits', starRating: 3 },
+  { name: 'Fruit Shop', starRating: 4 },
+  { name: 'Veggie Mart', starRating: 5 },
+  { name: 'Healthy Foods', starRating: 2 },
+]
 
-const DiscoverView = ({ onPressLogin, onPressLogout, session, categories }: Props) => {
-  const { language, set: setLanguage } = useLanguage()
-  const { t } = useTranslation()
-
-  // TODO: Move this to layout to catch the default language from the user
-  // This is only temporal to show how it works.
-  useEffect(
-    function onMount() {
-      if (language && language !== services.i18n?.language) {
-        if (services.i18n) services.i18n?.changeLanguage(language)
-      }
-
-      if (!language) {
-        const lang = services.i18n?.language
-        if (lang) {
-          setLanguage(lang)
-        }
-      }
-    },
-    [services.i18n, language]
-  )
-
-  function toggleLanguage(value: string) {
-    setLanguage(value)
-    services.i18n?.changeLanguage(value)
-  }
-
-  return (
-    <Container backgroundColor={'surface'}>
-      <Box flex={1} justifyContent="center">
-        <Text variant={'body/medium'}>
-          Discover {language}: {t('global.save')}
-        </Text>
-
-        <Box
-          flexDirection={'row'}
-          alignItems={'center'}
-          justifyContent={'space-around'}
-          marginVertical={'l'}>
-          <Button title="EN" onPress={() => toggleLanguage('en')} />
-          <Button title="ES" onPress={() => toggleLanguage('es')} />
-          <Button title="PR" onPress={() => toggleLanguage('pr')} />
-        </Box>
-        {session.token ? (
-          <Button title="Logout" onPress={onPressLogout} />
-        ) : (
-          <Button title="Login" onPress={onPressLogin} />
-        )}
-      </Box>
-
-      <Box>
-        {categories &&
-          categories.edges &&
-          categories?.edges.map((cat) => <Text key={cat?.node?.id}>{cat?.node?.name}</Text>)}
-      </Box>
+const tempPills = [
+  { name: 'Fruits' },
+  { name: 'Vegetables' },
+  { name: 'Meat' },
+  { name: 'Dairy' },
+  { name: 'Bakery' },
+  { name: 'Drinks' },
+  { name: 'Snacks' },
+  { name: 'Frozen' },
+  { name: 'Household' },
+]
+const DiscoverView = () => (
+  <SafeAreaView edges={['top']} style={{ backgroundColor: theme.colors.background }}>
+    <Container backgroundColor="background">
+      <ScrollView contentContainerStyle={{ gap: 16 }}>
+        <Header />
+        <SearchBar />
+        <PromotionCard />
+        <CategoryHeader headerText="Popular Stores" />
+        <FlatList
+          data={tempData}
+          style={{ flexGrow: 0 }}
+          showsHorizontalScrollIndicator={false}
+          ItemSeparatorComponent={() => <Box width={8} />}
+          renderItem={({ item }) => <ProductListItem {...item} />}
+          horizontal
+        />
+        <CategoryHeader headerText="Browse by category" />
+        <FlatList
+          data={tempPills}
+          renderItem={({ item }) => <CategoryPill {...item} />}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          ItemSeparatorComponent={() => <Box height={8} />}
+          contentContainerStyle={{ flex: 1 }}
+        />
+      </ScrollView>
     </Container>
-  )
-}
+  </SafeAreaView>
+)
 
 export default DiscoverView

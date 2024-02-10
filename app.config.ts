@@ -35,6 +35,7 @@ const config = ({ config: _ }: ConfigContext): ExpoConfig => {
       bundleIdentifier: 'com.up2date.app',
     },
     android: {
+      package: 'com.up2date.app',
       versionCode: parseInt(BUILD_NUMBER, 10),
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
@@ -73,7 +74,7 @@ const config = ({ config: _ }: ConfigContext): ExpoConfig => {
     experiments: {
       tsconfigPaths: true,
     },
-    owner: "up2date"
+    owner: 'up2date',
   }
 }
 

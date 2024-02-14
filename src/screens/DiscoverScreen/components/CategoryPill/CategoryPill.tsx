@@ -1,11 +1,12 @@
 import React from 'react'
 import { Pressable } from 'react-native'
 import Box from '@app/components/Box'
+import PressableBox from '@app/components/PressableBox'
 import Text from '@app/components/Text'
 import { CategoryPillProps } from './types'
 
 const CategoryPill: React.FC<CategoryPillProps> = ({ onPress, name }) => (
-  <Pressable onPress={onPress} style={{ flex: 1 }}>
+  <PressableBox onPress={onPress} flex={1}>
     <Box
       py="m"
       backgroundColor="surface"
@@ -21,7 +22,7 @@ const CategoryPill: React.FC<CategoryPillProps> = ({ onPress, name }) => (
         {name}
       </Text>
     </Box>
-  </Pressable>
+  </PressableBox>
 )
 
 export default CategoryPill

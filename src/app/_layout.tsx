@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { ThemeProvider } from '@shopify/restyle'
 import 'expo-dev-client'
 import { useFonts } from 'expo-font'
@@ -10,14 +11,16 @@ import theme from '@app/utils/theme'
 
 function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="(app)" />
-      <Stack.Screen name="(public)" />
-      <Stack.Screen name="(global)" />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="(app)" />
+        <Stack.Screen name="(public)" />
+        <Stack.Screen name="(global)" />
+      </Stack>
+    </GestureHandlerRootView>
   )
 }
 

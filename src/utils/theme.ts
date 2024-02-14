@@ -21,7 +21,7 @@ const theme = createTheme({
     onErrorContainer: '#410002',
     background: '#F1FDE8',
     onBackground: '#191C1A',
-    surface: '#D6E8CC',
+    surface: '#E0ECD7',
     onSurface: '#191C1A',
     cardBackground: '#CFF2CD',
     surfaceVariant: '#DFE4D7',

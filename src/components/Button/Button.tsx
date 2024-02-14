@@ -55,7 +55,7 @@ const Button: React.FC<ButtonProps> = ({
         {icon && icon.position === 'right' ? (
           <IconComponent name={icon.name} size={20} style={styles.icon} />
         ) : null}
-        {loading ? <ThemedActivityIndicator size="small" colorKey="white" /> : null}
+        {loading ? <ThemedActivityIndicator size="small" colorKey="onPrimary" /> : null}
       </Box>
     </Pressable>
   )

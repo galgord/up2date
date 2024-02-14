@@ -10,9 +10,9 @@ const Icon: React.FC<{
   size?: number
 }> = ({ color: colorKey, ...rest }) => {
   const theme = useTheme<Theme>()
-  const color = colorKey ? theme.colors[colorKey] : theme.colors.black
+  const color = colorKey ? theme.colors[colorKey] : theme.colors.scrim
 
-  return <MaterialCommunityIcons color={color} {...rest} />
+  return <MaterialCommunityIcons color={color} {...rest} style={{ zIndex: 99 }} />
 }
 
 export default Icon
